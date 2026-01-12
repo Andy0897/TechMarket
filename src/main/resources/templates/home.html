@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"></head>
+<body>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+
+<main>
+
+    <section class="hero-section">
+
+        <div class="container text-center">
+
+            <h1 class="hero-title">TechReuse</h1>
+            <p class="hero-subtitle">
+                Купи и продай техника втора употреба бързо и сигурно
+            </p>
+
+            <a href="/products" class="btn btn-primary hero-btn">
+                Разгледай обяви
+            </a>
+
+        </div>
+
+    </section>
+
+    <section class="why-section">
+
+        <div class="container">
+
+            <h2 class="section-title">Защо TechReuse?</h2>
+
+            <div class="row text-center">
+
+                <div class="col-md-4 mb-3">
+                    <div class="why-card">
+                        🔒
+                        <h5>Сигурни сделки</h5>
+                        <p>Проверени потребители</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="why-card">
+                        ♻
+                        <h5>Екологично</h5>
+                        <p>Дай втори живот на техниката</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="why-card">
+                        💰
+                        <h5>Изгодни цени</h5>
+                        <p>Спести пари</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="cta-section">
+
+        <div class="container text-center">
+
+            <h2>Готов ли си да започнеш?</h2>
+
+            <a href="/products" class="btn btn-success cta-btn">
+                Разгледай обявите
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer th:replace="~{fragments/footer}"></footer>
+
+</body>
+</html>

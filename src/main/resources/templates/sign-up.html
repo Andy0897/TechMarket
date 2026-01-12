@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"></head>
+<body>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+
+<main class="auth-page">
+
+    <div class="auth-card">
+
+        <h2 class="auth-title">Регистрация</h2>
+
+        <form th:action="@{/submit}" method="post" th:object="${user}">
+
+            <div class="mb-3">
+                <label class="form-label">Име</label>
+                <input type="text" th:field="*{firstName}" class="form-control auth-input">
+                <small class="text-danger"
+                       th:each="error : ${#fields.errors('firstName')}"
+                       th:text="${error}"></small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Фамилия</label>
+                <input type="text" th:field="*{lastName}" class="form-control auth-input">
+                <small class="text-danger"
+                       th:each="error : ${#fields.errors('lastName')}"
+                       th:text="${error}"></small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Потребителско име</label>
+                <input type="text" th:field="*{username}" class="form-control auth-input">
+
+                <small class="text-danger"
+                       th:each="error : ${#fields.errors('username')}"
+                       th:text="${error}"></small>
+
+                <small class="text-danger" th:if="${existsUserByUsername}">
+                    Това потребителско име е заето
+                </small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Имейл</label>
+                <input type="email" th:field="*{email}" class="form-control auth-input">
+
+                <small class="text-danger"
+                       th:each="error : ${#fields.errors('email')}"
+                       th:text="${error}"></small>
+
+                <small class="text-danger" th:if="${existsUserByEmail}">
+                    Този имейл вече е използван
+                </small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Парола</label>
+                <input type="password" th:field="*{password}" class="form-control auth-input">
+
+                <small class="text-danger"
+                       th:each="error : ${#fields.errors('password')}"
+                       th:text="${error}"></small>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 auth-btn">
+                Регистрация
+            </button>
+
+            <p class="auth-footer">
+                Вече имаш акаунт?
+                <a href="/sign-in">Вход</a>
+            </p>
+
+        </form>
+
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer}"></footer>
+
+</body>
+</html>

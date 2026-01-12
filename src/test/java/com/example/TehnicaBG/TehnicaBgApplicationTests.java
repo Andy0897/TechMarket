@@ -1,0 +1,13 @@
+package com.example.TehnicaBG;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class TehnicaBgApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

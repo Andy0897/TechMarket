@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"></head>
+
+<body>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="page-title text-center mb-5">
+        📦 Моите поръчки
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-6"
+             th:each="order : ${orders}">
+
+            <div class="user-order-card">
+
+                <div class="user-order-header">
+                    <span class="user-order-city"
+                          th:text="${order.city}">
+                    </span>
+
+                    <span class="user-order-status"
+                          th:text="${order.orderStatus.displayName}">
+                    </span>
+                </div>
+
+                <p class="user-order-address"
+                   th:text="${order.address}">
+                </p>
+
+                <div class="user-order-footer">
+
+                    <span class="user-order-price">
+                        <span th:text="${order.totalPrice}"></span> лв.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer th:replace="~{fragments/footer}"></footer>
+
+</body>
+</html>

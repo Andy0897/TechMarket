@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"></head>
+
+<body>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="page-title text-center mb-5">
+        📦 Моите поръчки
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-6"
+             th:each="order : ${orders}">
+
+            <div class="order-card">
+
+                <div class="order-header">
+
+                    <h5 th:text="|${order.buyer.firstName} ${order.buyer.lastName}|">
+                    </h5>
+
+                    <span class="order-status"
+                          th:text="${order.orderStatus}">
+                    </span>
+
+                </div>
+
+                <p class="order-address"
+                   th:text="|${order.city}, ${order.address}|">
+                </p>
+
+                <div class="order-footer">
+
+                    <span class="order-price">
+                        <span th:text="${order.totalPrice}"></span> лв.
+                    </span>
+
+                    <button class="tech-btn"
+                            th:onclick="|location.href='/orders/${order.id}';|">
+                        Виж повече
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer th:replace="~{fragments/footer}"></footer>
+
+</body>
+</html>

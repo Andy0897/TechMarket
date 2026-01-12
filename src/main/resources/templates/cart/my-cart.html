@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"></head>
+
+<body>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="page-title text-center mb-5">
+        🛒 Моята количка
+    </h2>
+
+    <div class="cart-box">
+
+        <div th:each="product : ${cart.products}"
+             class="cart-item">
+
+            <div class="cart-item-info">
+
+                <h5 th:text="${product.title}"></h5>
+
+                <span class="cart-price">
+                    <span th:text="${product.price}"></span> лв.
+                </span>
+
+            </div>
+
+            <form th:action="@{/carts/submit-remove-product/{productId}(productId = ${product.id})}"
+                  method="post">
+
+                <button class="cart-remove-btn">
+                    ❌ Премахни
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="cart-total">
+
+            <span>Общо:</span>
+
+            <strong>
+                <span th:text="${cart.totalPrice}"></span> лв.
+            </strong>
+
+        </div>
+
+        <button class="tech-btn w-100 mt-4"
+                onclick="location.href='/orders/purchase';">
+            ✅ Поръчай
+        </button>
+
+    </div>
+
+</div>
+
+<footer th:replace="~{fragments/footer}"></footer>
+
+</body>
+</html>

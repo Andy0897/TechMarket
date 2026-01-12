@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"></head>
+
+<body>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="page-title text-center mb-4">
+        Добави нова обява
+    </h2>
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <form class="tech-form"
+                  th:action="@{/products/submit}"
+                  method="post"
+                  th:object="${product}"
+                  enctype="multipart/form-data">
+
+                <div class="mb-4">
+                    <label class="form-label">Снимки</label>
+                    <input type="file"
+                           class="tech-input form-control"
+                           name="images"
+                           multiple
+                           accept="image/png, image/gif, image/jpeg"/>
+
+                    <div class="text-danger mt-1"
+                         th:if="${hasUploadError}">
+                        Възникна грешка при качване
+                    </div>
+
+                    <div class="text-danger mt-1"
+                         th:if="${!areImagesSelected}">
+                        Полето не може да бъде празно
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Заглавие</label>
+                    <input type="text"
+                           class="tech-input form-control"
+                           th:field="*{title}">
+
+                    <div class="text-danger"
+                         th:each="error : ${#fields.errors('title')}"
+                         th:text="${error}">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Описание</label>
+                    <textarea class="tech-input form-control"
+                              rows="4"
+                              th:field="*{description}">
+                    </textarea>
+
+                    <div class="text-danger"
+                         th:each="error : ${#fields.errors('description')}"
+                         th:text="${error}">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Цена (лв.)</label>
+                    <input type="number"
+                           class="tech-input form-control"
+                           step="1"
+                           th:field="*{price}">
+
+                    <div class="text-danger"
+                         th:each="error : ${#fields.errors('price')}"
+                         th:text="${error}">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Категория</label>
+                    <select class="tech-input form-select"
+                            th:field="*{category}">
+
+                        <option value="" disabled selected>
+                            -- Избери категория --
+                        </option>
+
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.name}">
+                        </option>
+                    </select>
+
+                    <div class="text-danger"
+                         th:each="error : ${#fields.errors('category')}"
+                         th:text="${error}">
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <label class="form-label">Състояние</label>
+                    <select class="tech-input form-select"
+                            th:field="*{condition}">
+                        <option value="NEW">Ново</option>
+                        <option value="VERY_GOOD">Много добро</option>
+                        <option value="USED">Използвано</option>
+                        <option value="DEFECT">С дефект</option>
+                    </select>
+
+                    <div class="text-danger"
+                         th:each="error : ${#fields.errors('condition')}"
+                         th:text="${error}">
+                    </div>
+                </div>
+
+                <button type="submit"
+                        class="tech-btn w-100">
+                    📤 Публикувай обявата
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer th:replace="~{fragments/footer}"></footer>
+
+</body>
+</html>
