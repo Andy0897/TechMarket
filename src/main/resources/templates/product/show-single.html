@@ -1,77 +1,17 @@
 <!DOCTYPE html>
 <html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-
 <body>
-
 <nav th:replace="~{fragments/navbar}"></nav>
-
-<div class="container mt-5">
-
-    <div class="row">
-
-        <div class="col-md-6">
-
-            <div class="tech-gallery">
-
-                <img id="mainImage"
-                     th:src="@{'data:image/jpeg;base64,' + ${encoder.encodeToBase64(product.images.get(0))}}"
-                     class="tech-main-img">
-
-                <div class="tech-thumbs mt-3">
-
-                    <img th:each="img, iterStat : ${product.images}"
-                         th:src="@{'data:image/jpeg;base64,' + ${encoder.encodeToBase64(img)}}"
-                         class="tech-thumb"
-                         th:onclick="|changeImage(this.src)|">
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-6">
-
-            <h2 class="page-title"
-                th:text="${product.title}">
-            </h2>
-
-            <span class="tech-condition mt-2 d-inline-block"
-                  th:text="${product.condition.displayName}">
-            </span>
-
-            <p class="tech-desc mt-4"
-               th:text="${product.description}">
-            </p>
-
-            <h4 class="tech-price mt-3">
-                <span th:text="${product.price}"></span> лв.
-            </h4>
-
-            <form class="mt-4"
-                  th:action="@{/carts/submit-add-product/{productId}(productId=${product.id})}"
-                  method="post">
-
-                <button type="submit"
-                        class="tech-btn w-100">
-                    🛒 Добави в количката
-                </button>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
-
+<main>
+    <img th:src="@{'data:image/jpeg;base64,' + ${encoder.encodeToBase64(product.images.get(0))}}">
+    <h1 th:text="${product.title}"></h1>
+    <p th:text="${product.description}"></p>
+    <p><strong th:text="${product.condition.displayName}"></strong></p>
+    <form th:action="@{/carts/submit-add-product/{productId}(productId=${product.id})}" method="post">
+        <button type="submit">Добави в количката</button>
+    </form>
+</main>
 <footer th:replace="~{fragments/footer}"></footer>
-
-<script>
-    function changeImage(src) {
-        document.getElementById("mainImage").src = src;
-    }
-</script>
-
 </body>
 </html>

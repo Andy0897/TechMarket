@@ -33,6 +33,7 @@ public class ProductController {
     public String getShowProduct(@PathVariable("productId") Long productId, Model model) {
         Product product = productRepository.findById(productId).get();
         model.addAttribute("product", product);
+        model.addAttribute("encoder", new ImageEncoder());
         return product.isAvailable() ? "product/show-single" : "redirect:/products";
     }
 

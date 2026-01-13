@@ -1,79 +1,24 @@
 <!DOCTYPE html>
 <html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-
 <body>
-
 <nav th:replace="~{fragments/navbar}"></nav>
-
-<div class="container mt-5 mb-5">
-
-    <div class="order-details-box">
-
-        <h2 class="page-title text-center mb-4"
-            th:text="|Поръчка №${order.id}|">
-        </h2>
-
-        <div class="order-info">
-
-            <p>
-                👤 Клиент:
-                <strong th:text="|${order.buyer.firstName} ${order.buyer.lastName}|">
-                </strong>
-            </p>
-
-            <p>
-                📍 Адрес:
-                <span th:text="|${order.city}, ${order.address}|"></span>
-            </p>
-
-            <p>
-                💰 Обща стойност:
-                <strong class="order-price"
-                        th:text="|${order.totalPrice} лв.|">
-                </strong>
-            </p>
-
-            <p>
-                📦 Статус:
-                <span class="order-status"
-                      th:text="${order.orderStatus.displayName}">
-                </span>
-            </p>
-
-        </div>
-
-        <div class="order-status-box mt-4">
-
-            <h5>Промени статус</h5>
-
-            <form th:action="@{/orders/submit-change-order-status/{orderId}(orderId=${order.id})}"
-                  method="post"
-                  class="order-form">
-
-                <select name="orderStatus"
-                        class="tech-input form-select mb-3">
-
-                    <option value="IN_REVIEW">В обработка</option>
-                    <option value="SENT">Изпратена</option>
-                    <option value="DELIVERED">Доставена</option>
-
-                </select>
-
-                <button type="submit"
-                        class="tech-btn w-100">
-                    🔄 Обнови статуса
-                </button>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
-
+<main>
+    <h2 th:text="|Поръчка №${order.id}|"></h2>
+    <h2 th:text="|${order.buyer.firstName} ${order.buyer.lastName}|"></h2>
+    <p th:text="|${order.city} ${order.address}|"></p>
+    <p th:text="|Обща стойност: ${order.totalPrice}|"></p>
+    <p th:text="|Статус на поръчката: ${order.orderStatus.displayName}|"></p>
+    <form th:action="@{/orders/submit-change-order-status/{orderId}(orderId=${order.id})}" method="post">
+        <label for="orderStatus">Статус на поръчката</label>
+        <select name="orderStatus" id="orderStatus">
+            <option value="IN_REVIEW">В обработка</option>
+            <option value="SENT">Изпратена</option>
+            <option value="DELIVERED">Доставена</option>
+        </select>
+        <button type="submit">Промени</button>
+    </form>
+</main>
 <footer th:replace="~{fragments/footer}"></footer>
-
 </body>
 </html>

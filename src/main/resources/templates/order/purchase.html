@@ -1,64 +1,24 @@
 <!DOCTYPE html>
 <html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-
 <body>
-
 <nav th:replace="~{fragments/navbar}"></nav>
-
-<div class="container mt-5 mb-5">
-
-    <h2 class="page-title text-center mb-4">
-        🧾 Завърши поръчка
-    </h2>
-
-    <div class="row justify-content-center">
-
-        <div class="col-md-6">
-
-            <form class="tech-form"
-                  th:action="@{/orders/submit-purchase}"
-                  method="post"
-                  th:object="${order}">
-
-                <div class="mb-4">
-                    <label class="form-label">Град</label>
-                    <input type="text"
-                           class="tech-input form-control"
-                           th:field="*{city}">
-
-                    <div class="text-danger"
-                         th:each="error : ${#fields.errors('city')}"
-                         th:text="${error}">
-                    </div>
-                </div>
-
-                <div class="mb-5">
-                    <label class="form-label">Адрес</label>
-                    <input type="text"
-                           class="tech-input form-control"
-                           th:field="*{address}">
-
-                    <div class="text-danger"
-                         th:each="error : ${#fields.errors('address')}"
-                         th:text="${error}">
-                    </div>
-                </div>
-
-                <button type="submit"
-                        class="tech-btn w-100">
-                    ✅ Потвърди поръчката
-                </button>
-
-            </form>
-
+<main>
+    <h2>Завърши поръчка</h2>
+    <form th:action="@{/orders/submit-purchase}" method="post" th:object="${order}">
+        <div>
+            <label for="city">Град</label>
+            <input type="text" th:field="*{city}" id="city">
+            <div th:each="error : ${#fields.errors('city')}" th:text="${error}"></div>
         </div>
-
-    </div>
-
-</div>
-
+        <div>
+            <label for="address">Адрес</label>
+            <input type="text" th:field="*{address}" id="address">
+            <div th:each="error : ${#fields.errors('address')}" th:text="${error}"></div>
+        </div>
+        <button type="submit">Поръчай</button>
+    </form>
+</main>
 <footer th:replace="~{fragments/footer}"></footer>
-
 </body>
 </html>
