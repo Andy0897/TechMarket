@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-<body>
+<body class="auth-body">
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <h2>Вход</h2>
-    <div th:if="${param.error}">Невалидно потребителско име/имейл или парола.</div>
-    <div th:if="${param.logout}">Излязохте успешно от профила си.</div>
-    <form th:action="@{/sign-in}" method="post">
-        <div>
-            <label for="usernameOrEmail">Потребителско име или имейл</label>
-            <input type="text" id="usernameOrEmail" name="usernameOrEmail">
+<main class="auth-wrapper">
+    <div class="auth-card">
+        <h2 class="auth-title">🔐 Вход</h2>
+        <div class="auth-alert auth-error"
+             th:if="${param.error}">
+            Невалидно потребителско име или парола
         </div>
-        <div>
-            <label for="password">Парола</label>
-            <input type="password" id="password" name="password">
+        <div class="auth-alert auth-success"
+             th:if="${param.logout}">
+            Излязохте успешно от профила си
         </div>
-        <button type="submit">Вход</button>
-        <div> Нямаш акаунт?
-            <a href="/sign-up">Регистрирай се</a>
-        </div>
-    </form>
+        <form th:action="@{/sign-in}" method="post" class="auth-form">
+            <div class="auth-group">
+                <label>Потребителско име или имейл</label>
+                <input type="text"
+                       name="usernameOrEmail"
+                       placeholder="Въведете потребителско име">
+            </div>
+            <div class="auth-group">
+                <label>Парола</label>
+                <input type="password"
+                       name="password"
+                       placeholder="Въведете парола">
+            </div>
+            <button class="auth-btn">Вход</button>
+            <p class="auth-link">
+                Нямаш акаунт?
+                <a href="/sign-up">Регистрирай се</a>
+            </p>
+        </form>
+    </div>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

@@ -3,21 +3,42 @@
 <head th:replace="~{fragments/head}"></head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <h2>Завърши поръчка</h2>
-    <form th:action="@{/orders/submit-purchase}" method="post" th:object="${order}">
-        <div>
-            <label for="city">Град</label>
-            <input type="text" th:field="*{city}" id="city">
-            <div th:each="error : ${#fields.errors('city')}" th:text="${error}"></div>
-        </div>
-        <div>
-            <label for="address">Адрес</label>
-            <input type="text" th:field="*{address}" id="address">
-            <div th:each="error : ${#fields.errors('address')}" th:text="${error}"></div>
-        </div>
-        <button type="submit">Поръчай</button>
-    </form>
+<header class="page-header">
+    <h2>🛒 Завърши поръчка</h2>
+</header>
+<main class="container py-5">
+    <div class="checkout-box">
+        <h2>Данни за доставка</h2>
+        <form th:action="@{/orders/submit-purchase}"
+              method="post"
+              th:object="${order}">
+            <div class="form-group">
+                <label for="city">Град</label>
+                <input type="text"
+                       th:field="*{city}"
+                       id="city"
+                       placeholder="Въведете град">
+                <div class="error"
+                     th:each="error : ${#fields.errors('city')}"
+                     th:text="${error}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Адрес</label>
+                <input type="text"
+                       th:field="*{address}"
+                       id="address"
+                       placeholder="Улица, номер, вход...">
+                <div class="error"
+                     th:each="error : ${#fields.errors('address')}"
+                     th:text="${error}">
+                </div>
+            </div>
+            <button type="submit" class="checkout-btn">
+                Завърши поръчката
+            </button>
+        </form>
+    </div>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

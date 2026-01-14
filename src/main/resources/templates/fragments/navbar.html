@@ -1,3 +1,70 @@
-<nav>
-    navbar
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary clean-navbar" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">
+            TechMarket
+        </a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        Начало
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">
+                        Продукти
+                    </a>
+                </li>
+                <li class="nav-item dropdown"
+                    sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link dropdown-toggle"
+                       role="button"
+                       data-bs-toggle="dropdown">
+                        Администратор
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item"
+                               href="/orders">
+                                Управление на поръчки
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="/products/add">
+                                Добави продукт
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="d-flex gap-2 align-items-center">
+                <a sec:authorize="hasAuthority('USER')"
+                   href="/carts/my-cart"
+                   class="btn btn-success">
+                    Количка
+                </a>
+                <a sec:authorize="!isAuthenticated()"
+                   href="/sign-in"
+                   class="btn btn-outline-light">
+                    Вход
+                </a>
+                <a sec:authorize="!isAuthenticated()"
+                   href="/sign-up"
+                   class="btn btn-warning text-dark">
+                    Регистрация
+                </a>
+                <a sec:authorize="isAuthenticated()"
+                   href="/logout"
+                   class="btn btn-danger">
+                    Изход
+                </a>
+            </div>
+        </div>
+    </div>
 </nav>

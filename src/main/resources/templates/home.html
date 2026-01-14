@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-<body>
+<body class="home-body">
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <h1>Home page</h1>
+<main class="home-wrapper">
+    <section class="home-hero">
+        <h1>🔌 Втора ръка техника с гаранция</h1>
+        <p>Качествени продукти на достъпни цени</p>
+        <a href="/products" class="home-btn">
+            Разгледай продукти
+        </a>
+    </section>
+    <section class="home-features">
+        <div class="feature-card">
+            <h3>✔ Проверено качество</h3>
+            <p>Всички продукти са тествани</p>
+        </div>
+        <div class="feature-card">
+            <h3>🚚 Бърза доставка</h3>
+            <p>До 48 часа в цялата страна</p>
+        </div>
+        <div class="feature-card">
+            <h3>💳 Сигурно плащане</h3>
+            <p>Наложен платеж</p>
+        </div>
+    </section>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

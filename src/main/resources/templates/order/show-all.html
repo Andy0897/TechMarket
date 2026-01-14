@@ -3,12 +3,29 @@
 <head th:replace="~{fragments/head}"></head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <h2>Завърши поръчка</h2>
-    <div th:each="order : ${orders}">
-        <h2 th:text="|${order.buyer.firstName} ${order.buyer.lastName}|"></h2>
-        <p th:text="|${order.city} ${order.address}|"></p>
-        <button th:onclick="|location.href='/orders/${order.id}';|">Виж повече</button>
+<header class="page-header">
+    <h2>⚙️ Управление на поръчки</h2>
+</header>
+<main class="container py-5">
+    <div class="admin-orders">
+        <h2>Всички поръчки</h2>
+        <div th:if="${orders.isEmpty()}">
+            <p class="text-center">Няма направени поръчки</p>
+        </div>
+        <div th:each="order : ${orders}" class="order-card">
+            <div class="order-info">
+                <h3 th:text="|${order.buyer.firstName} ${order.buyer.lastName}|"></h3>
+                <p th:text="|📍 ${order.city}, ${order.address}|"></p>
+                <p>
+                    Статус:
+                    <strong th:text="${order.orderStatus.displayName}"></strong>
+                </p>
+            </div>
+            <button class="admin-btn"
+                    th:onclick="|location.href='/orders/${order.id}';|">
+                Виж детайли
+            </button>
+        </div>
     </div>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>

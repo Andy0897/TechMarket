@@ -1,19 +1,34 @@
 <!DOCTYPE html>
 <html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-<body>
+<body class="cart-body">
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <h2>Моята количка</h2>
-    <div th:each="product : ${cart.products}">
-        <h3 th:text="${product.title}"></h3>
-        <p th:text="${product.price}"></p>
-        <form th:action="@{/carts/submit-remove-product/{productId}(productId = ${product.id})}">
-            <button>Премахни от количката</button>
-        </form>
+<main class="cart-wrapper">
+    <h2 class="cart-title">🛒 Моята количка</h2>
+    <div class="cart-container">
+        <div th:each="product : ${cart.products}" class="cart-item">
+            <div class="cart-item-info">
+                <h3 th:text="${product.title}"></h3>
+                <p class="cart-price" th:text="|${product.price} лв.|"></p>
+            </div>
+            <form th:action="@{/carts/submit-remove-product/{productId}(productId = ${product.id})}"
+                  method="post">
+                <button class="cart-remove-btn">
+                    Премахни
+                </button>
+            </form>
+        </div>
     </div>
-    <h3 th:text="${cart.totalPrice}"></h3>
-    <button onclick="location.href='/orders/purchase';">Поръчай</button>
+    <div class="cart-total">
+        <h3>
+            Общо:
+            <span th:text="|${cart.totalPrice} лв.|"></span>
+        </h3>
+        <button class="cart-order-btn"
+                onclick="location.href='/orders/purchase';">
+            Поръчай
+        </button>
+    </div>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

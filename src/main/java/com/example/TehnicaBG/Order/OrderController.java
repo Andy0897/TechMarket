@@ -1,5 +1,6 @@
 package com.example.TehnicaBG.Order;
 
+import com.example.TehnicaBG.ImageEncoder;
 import com.example.TehnicaBG.OrderStatus.OrderStatus;
 import com.example.TehnicaBG.User.User;
 import com.example.TehnicaBG.User.UserRepository;
@@ -60,6 +61,7 @@ public class OrderController {
     public String getShowMyOrders(Principal principal, Model model) {
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("orders", orderRepository.findAllByBuyerId(user.getId()));
+        model.addAttribute("encoder", new ImageEncoder());
         return "order/my-orders";
     }
 }

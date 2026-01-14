@@ -3,13 +3,37 @@
 <head th:replace="~{fragments/head}"></head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <h2>Продукти</h2>
-    <div th:each="product : ${products}">
-        <img th:src="@{'data:image/jpeg;base64,' + ${encoder.encodeToBase64(product.images.get(0))}}">
-        <h1 th:text="${product.title}"></h1>
-        <p th:text="${product.condition.displayName}"></p>
-        <button th:onclick="|location.href='/products/${product.id}';|">Виж повече</button>
+<header class="page-header">
+    <h1>🛒 Всички продукти</h1>
+    <p>Най-добрите оферти за техника</p>
+</header>
+<main class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-4 col-md-6"
+             th:each="p:${products}">
+            <div class="shop-card h-100">
+                <img th:src="@{'data:image/jpeg;base64,'+ ${encoder.encodeToBase64(p.images.get(0))}}"
+                     style="height:220px;object-fit:cover;width:100%">
+                <div class="p-3">
+                    <h6 class="fw-bold"
+                        th:text="${p.title}">
+                    </h6>
+                    <p class="text-muted small"
+                       th:text="${#strings.length(p.description)>80
+                        ? #strings.substring(p.description,0,80)+'...'
+                        : p.description}">
+                    </p>
+                    <p class="price">
+                        <span th:text="${p.price}"></span> лв.
+                    </p>
+                    <button class="btn btn-outline-primary w-100"
+                            th:onclick="|location.href='/products/${p.id}'|">
+                        Виж детайли
+                    </button>
+
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>

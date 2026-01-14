@@ -29,7 +29,7 @@ public class CartService {
         cart.addProduct(product);
         cart.setTotalPrice(cart.getTotalPrice() + product.getPrice());
         cartRepository.save(cart);
-        return "redirect/carts/my-cart";
+        return "redirect:/carts/my-cart";
     }
 
     public String submitRemoveProduct(Long productId, Principal principal) {
@@ -41,6 +41,6 @@ public class CartService {
         cart.removeProduct(product);
         cart.setTotalPrice(cart.getTotalPrice() - product.getPrice());
         cartRepository.save(cart);
-        return "redirect/carts/my-cart";
+        return "redirect:/carts/my-cart";
     }
 }

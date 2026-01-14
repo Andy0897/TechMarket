@@ -3,49 +3,70 @@
 <head th:replace="~{fragments/head}"></head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <h2>Добави обява</h2>
-    <form th:action="@{/products/submit}" method="post" th:object="${product}" enctype="multipart/form-data">
-        <div>
-            <label for="images">Снимки</label>
-            <input type="file" id="images" name="images" multiple accept="image/png, image/gif, image/jpeg"/>
-            <div th:if="${hasUploadError}">Възникна грешка</div>
-            <div th:if="${!areImagesSelected}">Полето не може да бъде празно</div>
+<header class="page-header">
+    <h1>Добави продукт</h1>
+    <p>Администраторски панел</p>
+</header>
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="shop-card p-4">
+                <form th:action="@{/products/submit}"
+                      method="post"
+                      th:object="${product}"
+                      enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label>Снимки</label>
+                        <input type="file"
+                               class="form-control"
+                               name="images"
+                               multiple>
+                    </div>
+                    <div class="mb-3">
+                        <label>Заглавие</label>
+                        <input class="form-control"
+                               th:field="*{title}">
+                    </div>
+                    <div class="mb-3">
+                        <label>Описание</label>
+                        <textarea class="form-control"
+                                  rows="4"
+                                  th:field="*{description}">
+                        </textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label>Цена</label>
+                        <input type="number"
+                               class="form-control"
+                               th:field="*{price}">
+                    </div>
+                    <div class="mb-3">
+                        <label>Категория</label>
+                        <select class="form-select"
+                                th:field="*{category}">
+                            <option th:each="c:${categories}"
+                                    th:value="${c.id}"
+                                    th:text="${c.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label>Състояние</label>
+                        <select class="form-select"
+                                th:field="*{condition}">
+                            <option value="NEW">Ново</option>
+                            <option value="VERY_GOOD">Много добро</option>
+                            <option value="USED">Използвано</option>
+                            <option value="DEFECT">С дефект</option>
+                        </select>
+                    </div>
+                    <button class="shop-btn w-100">
+                        Запази продукта
+                    </button>
+                </form>
+            </div>
         </div>
-        <div>
-            <label for="title">Заглавие</label>
-            <input type="text" th:field="*{title}" id="title">
-            <div th:each="error : ${#fields.errors('title')}" th:text="${error}"></div>
-        </div>
-        <div>
-            <label for="description">Описание</label>
-            <textarea th:field="*{description}" id="description"></textarea>
-            <div th:each="error : ${#fields.errors('description')}" th:text="${error}"></div>
-        </div>
-        <div>
-            <label for="price">Цена</label>
-            <input type="number" th:field="*{price}" id="price" step="1">
-            <div th:each="error : ${#fields.errors('price')}" th:text="${error}"></div>
-        </div>
-        <div>
-            <label for="category">Категория</label>
-            <select th:field="*{category}" id="category">
-                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-            </select>
-            <div th:each="error : ${#fields.errors('category')}" th:text="${error}"></div>
-        </div>
-        <div>
-            <label for="condition">Състояние</label>
-            <select th:field="*{condition}" id="condition">
-                <option value="NEW">Ново</option>
-                <option value="VERY_GOOD">Много добро</option>
-                <option value="USED">Използвано</option>
-                <option value="DEFECT">С дефект</option>
-            </select>
-            <div th:each="error : ${#fields.errors('condition')}" th:text="${error}"></div>
-        </div>
-        <button type="submit">Добави</button>
-    </form>
+    </div>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

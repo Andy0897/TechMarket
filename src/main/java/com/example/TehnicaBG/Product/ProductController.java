@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/products")
 public class ProductController {
@@ -32,7 +34,9 @@ public class ProductController {
     @GetMapping("/{productId}")
     public String getShowProduct(@PathVariable("productId") Long productId, Model model) {
         Product product = productRepository.findById(productId).get();
+        List<Product> productList = (List<Product>) productRepository.findAvailableProducts();
         model.addAttribute("product", product);
+        model.addAttribute("relatedProducts", productList.size() > 3 ? productList.subList(0, 2) : productList);
         model.addAttribute("encoder", new ImageEncoder());
         return product.isAvailable() ? "product/show-single" : "redirect:/products";
     }

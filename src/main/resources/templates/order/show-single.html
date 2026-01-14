@@ -1,23 +1,50 @@
 <!DOCTYPE html>
-<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
-<body>
+<body class="order-details-body">
 <nav th:replace="~{fragments/navbar}"></nav>
-<main>
-    <h2 th:text="|Поръчка №${order.id}|"></h2>
-    <h2 th:text="|${order.buyer.firstName} ${order.buyer.lastName}|"></h2>
-    <p th:text="|${order.city} ${order.address}|"></p>
-    <p th:text="|Обща стойност: ${order.totalPrice}|"></p>
-    <p th:text="|Статус на поръчката: ${order.orderStatus.displayName}|"></p>
-    <form th:action="@{/orders/submit-change-order-status/{orderId}(orderId=${order.id})}" method="post">
-        <label for="orderStatus">Статус на поръчката</label>
-        <select name="orderStatus" id="orderStatus">
-            <option value="IN_REVIEW">В обработка</option>
-            <option value="SENT">Изпратена</option>
-            <option value="DELIVERED">Доставена</option>
-        </select>
-        <button type="submit">Промени</button>
-    </form>
+<main class="order-details-wrapper">
+    <div class="order-details-card">
+        <h2 class="order-details-title">
+            📦 Поръчка №<span th:text="${order.id}"></span>
+        </h2>
+        <div class="order-details-info">
+            <p>
+                👤 Клиент:
+                <strong th:text="|${order.buyer.firstName} ${order.buyer.lastName}|"></strong>
+            </p>
+            <p>
+                📍 Адрес:
+                <span th:text="|${order.city}, ${order.address}|"></span>
+            </p>
+            <p>
+                💰 Обща сума:
+                <strong th:text="|${order.totalPrice} лв.|"></strong>
+            </p>
+            <p>
+                📌 Статус:
+                <span class="order-details-status"
+                      th:text="${order.orderStatus.displayName}">
+                </span>
+            </p>
+        </div>
+        <div sec:authorize="hasAuthority('ADMIN')" class="order-details-admin">
+            <h4>⚙ Управление на поръчката</h4>
+            <form th:action="@{/orders/submit-change-order-status/{orderId}(orderId=${order.id})}"
+                  method="post">
+                <label>Статус</label>
+                <select name="orderStatus" class="order-details-select">
+                    <option value="IN_REVIEW">В обработка</option>
+                    <option value="SENT">Изпратена</option>
+                    <option value="DELIVERED">Доставена</option>
+                </select>
+                <button type="submit" class="order-details-btn">
+                    Запази промяната
+                </button>
+            </form>
+        </div>
+    </div>
 </main>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>
