@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head}"></head>
+<body class="cart-body">
+<nav th:replace="~{fragments/navbar}"></nav>
+<main class="profile-page">
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="avatar">👤</div>
+                <h2 th:text="|${user.firstName} ${user.lastName}|"></h2>
+                <p class="username"
+                   th:text="|@${user.username}|"></p>
+                <span th:if="${user.role == 'ADMIN'}" class="badge bg-success">Администратор</span>
+            </div>
+            <div class="profile-info">
+                <div class="info-row">
+                    <span>Имейл:</span>
+                    <strong th:text="${user.email}"></strong>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <a sec:authorize="hasAuthority('USER')"
+                   href="/orders/my-orders"
+                   class="btn btn-primary">
+                    Моите поръчки
+                </a>
+                <a sec:authorize="hasAuthority('USER')"
+                   href="/carts/my-cart"
+                   class="btn btn-success">
+                    Количка
+                </a>
+                <a href="/logout"
+                   class="btn btn-danger">
+                    Изход
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

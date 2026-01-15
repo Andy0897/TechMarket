@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="bg" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments/head}"></head>
 <body>
 <nav th:replace="~{fragments/navbar}"></nav>
@@ -37,9 +37,15 @@
                     <span th:text="${product.price}"></span> лв.
                 </h4>
                 <form th:action="@{/carts/submit-add-product/{id}(id=${product.id})}"
+                      sec:authorize="hasAuthority('USER')"
                       method="post">
                     <button class="shop-btn w-100 mt-3">
                         Добави в количката
+                    </button>
+                </form>
+                <form action="#" sec:authorize="hasAuthority('ADMIN')">
+                    <button class="shop-btn-disabled w-100 mt-3">
+                        Не можете да добавяте в количката
                     </button>
                 </form>
             </div>
