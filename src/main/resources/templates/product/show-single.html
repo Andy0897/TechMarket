@@ -31,6 +31,7 @@
                       th:text="${product.condition.displayName}">
                 </span>
                 <p class="mt-3"
+                   style="white-space: pre-line"
                    th:text="${product.description}">
                 </p>
                 <h4 class="price">
@@ -43,7 +44,7 @@
                         Добави в количката
                     </button>
                 </form>
-                <form action="#" sec:authorize="hasAuthority('ADMIN')">
+                <form sec:authorize="hasAuthority('ADMIN')">
                     <button class="shop-btn-disabled w-100 mt-3">
                         Не можете да добавяте в количката
                     </button>

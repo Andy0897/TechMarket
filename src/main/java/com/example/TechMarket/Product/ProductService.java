@@ -1,5 +1,6 @@
 package com.example.TechMarket.Product;
 
+import com.example.TechMarket.Category.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -12,9 +13,11 @@ import java.util.List;
 @Service
 public class ProductService {
     ProductRepository productRepository;
+    CategoryRepository categoryRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Transactional
@@ -33,8 +36,9 @@ public class ProductService {
             hasUploadError = true;
         }
 
-        if(bindingResult.hasFieldErrors("title") || bindingResult.hasFieldErrors("description") || bindingResult.hasFieldErrors("price") || hasUploadError) {
+        if(bindingResult.hasFieldErrors("title") || bindingResult.hasFieldErrors("description") || bindingResult.hasFieldErrors("price") || hasUploadError || !areImagesSelected) {
             model.addAttribute("product", product);
+            model.addAttribute("categories", categoryRepository.findAll());
             model.addAttribute("hasUploadError", hasUploadError);
             model.addAttribute("areImagesSelected", areImagesSelected);
             return "product/add";

@@ -46,8 +46,13 @@
             <div class="d-flex gap-2 align-items-center">
                 <a sec:authorize="hasAuthority('USER')"
                    href="/carts/my-cart"
-                   class="btn btn-success">
+                   class="btn btn-outline-light">
                     Количка
+                </a>
+                <a sec:authorize="isAuthenticated()"
+                   href="/profile"
+                   class="btn btn-outline-light">
+                    Профил
                 </a>
                 <a sec:authorize="!isAuthenticated()"
                    href="/sign-in"
@@ -61,7 +66,7 @@
                 </a>
                 <a sec:authorize="isAuthenticated()"
                    href="/logout"
-                   class="btn btn-danger">
+                   class="btn btn-warning">
                     Изход
                 </a>
             </div>
