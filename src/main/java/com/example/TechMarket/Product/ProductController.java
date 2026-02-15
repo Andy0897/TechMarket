@@ -1,6 +1,7 @@
 package com.example.TechMarket.Product;
 
 import com.example.TechMarket.Category.CategoryRepository;
+import com.example.TechMarket.Condition.Condition;
 import com.example.TechMarket.ImageEncoder;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -25,11 +26,32 @@ public class ProductController {
     }
 
     @GetMapping
-    public String getShowProducts(Model model) {
-        model.addAttribute("products", productRepository.findAvailableProducts());
+    public String getShowProducts(@RequestParam(required = false) Long categoryId,
+                                  @RequestParam(required = false) Double minPrice,
+                                  @RequestParam(required = false) Double maxPrice,
+                                  @RequestParam(required = false) Condition condition,
+                                  Model model) {
+
+        List<Product> products = productRepository.findAvailableProducts()
+                .stream()
+                .filter(p -> categoryId == null ||
+                        (p.getCategory() != null &&
+                                p.getCategory().getId().equals(categoryId)))
+                .filter(p -> minPrice == null ||
+                        p.getPrice() >= minPrice)
+                .filter(p -> maxPrice == null ||
+                        p.getPrice() <= maxPrice)
+                .filter(p -> condition == null ||
+                        p.getCondition() == condition)
+                .toList();
+
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("encoder", new ImageEncoder());
+
         return "product/show-all";
     }
+
 
     @GetMapping("/{productId}")
     public String getShowProduct(@PathVariable("productId") Long productId, Model model) {

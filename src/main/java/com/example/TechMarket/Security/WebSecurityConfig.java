@@ -29,6 +29,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home", "/access-denied").permitAll()
                         .requestMatchers("/sign-in", "/sign-up", "/submit").anonymous()
+                        .requestMatchers("/orders/purchase", "/orders/submit-purchase", "/orders/my-orders", "/carts/my-cart", "/carts/submit-add-product/**", "/carts/submit-remove-product/**").hasAuthority("USER")
+                        .requestMatchers("/products/add", "/products/submit", "/orders/submit-change-order-status/**", "/orders").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

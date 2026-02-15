@@ -8,6 +8,58 @@
     <p>Най-добрите оферти за техника</p>
 </header>
 <main class="container py-5">
+    <!-- FILTER SECTION -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+
+            <form method="get" th:action="@{/products}">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label">Категория</label>
+                        <select name="categoryId" class="form-select">
+                            <option value="">Всички</option>
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.id}"
+                                    th:text="${category.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Цена от</label>
+                        <input type="number"
+                               step="1"
+                               name="minPrice"
+                               class="form-control"
+                               placeholder="0">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Цена до</label>
+                        <input type="number"
+                               step="1"
+                               name="maxPrice"
+                               class="form-control"
+                               placeholder="1000">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Състояние</label>
+                        <select name="condition" class="form-select">
+                            <option value="">Всички</option>
+                            <option value="NEW">Ново</option>
+                            <option value="VERY_GOOD">Много добро</option>
+                            <option value="USED">Използвано</option>
+                            <option value="DEFECT">С дефект</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-grid">
+                        <button class="btn btn-primary">
+                            Филтрирай
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="row g-4">
         <div class="col-lg-4 col-md-6"
              th:each="p:${products}">
