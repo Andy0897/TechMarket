@@ -9,7 +9,7 @@
         <div th:each="product : ${cart.products}" class="cart-item">
             <div class="cart-item-info">
                 <h3 th:text="${product.title}"></h3>
-                <p class="cart-price" th:text="|${product.price} лв.|"></p>
+                <p class="cart-price" th:text="|${#numbers.formatDecimal(product.price, 2, 2)} лв.|"></p>
             </div>
             <form th:action="@{/carts/submit-remove-product/{productId}(productId = ${product.id})}"
                   method="post">

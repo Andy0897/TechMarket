@@ -37,6 +37,7 @@ public class OrderController {
     public String getShowOrder(@PathVariable("orderId") Long orderId, Model model) {
         Order order = orderRepository.findById(orderId).get();
         model.addAttribute("order", order);
+        model.addAttribute("encoder", new ImageEncoder());
         return "order/show-single";
     }
 

@@ -49,4 +49,9 @@ public class ProductService {
         productRepository.save(product);
         return "redirect:/";
     }
+
+    public String submitDeleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+        return "redirect:/products";
+    }
 }

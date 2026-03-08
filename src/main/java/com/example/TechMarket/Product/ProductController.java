@@ -78,4 +78,9 @@ public class ProductController {
     public String getSubmitProduct(@Valid Product product, BindingResult bindingResult, @RequestParam("images") MultipartFile[] images, Model model) {
         return productService.submitAddProduct(product, bindingResult, images, model);
     }
+
+    @PostMapping("/submit-delete/{productId}")
+    public String getSubmitDeleteProduct(@PathVariable("productId") Long productId) {
+        return productService.submitDeleteProduct(productId);
+    }
 }

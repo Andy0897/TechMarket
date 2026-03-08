@@ -21,11 +21,23 @@
                                class="form-control"
                                name="images"
                                multiple>
+                        <div th:if="${hasUploadError}"
+                             class="error">
+                            Възникна грешка
+                        </div>
+                        <div th:if="${!areImagesSelected}"
+                             class="error">
+                            Полето не може да бъде празно
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label>Заглавие</label>
                         <input class="form-control"
                                th:field="*{title}">
+                        <div class="error"
+                             th:each="error : ${#fields.errors('title')}"
+                             th:text="${error}">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label>Описание</label>
@@ -33,6 +45,10 @@
                                   rows="4"
                                   th:field="*{description}">
                         </textarea>
+                        <div class="error"
+                             th:each="error : ${#fields.errors('description')}"
+                             th:text="${error}">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label>Цена</label>
@@ -40,6 +56,10 @@
                                class="form-control"
                                step="any"
                                th:field="*{price}">
+                        <div class="error"
+                             th:each="error : ${#fields.errors('price')}"
+                             th:text="${error}">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label>Категория</label>

@@ -3,9 +3,7 @@ package com.example.TechMarket.Product;
 import com.example.TechMarket.Category.Category;
 import com.example.TechMarket.Condition.Condition;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +20,10 @@ public class Product {
     private String title;
 
     @NotEmpty(message = "Полето не може да бъде празно")
+    @Size(max = 500, message = "Описанието не трябва да е по-дълго от 500 символа")
     private String description;
 
-    @Min(value = 0)
+    @Min(value = 0, message = "Невалидна стойност")
     private double price;
 
     @Lob

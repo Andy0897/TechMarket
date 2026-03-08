@@ -13,13 +13,13 @@
                 <img id="mainImage"
                      th:src="@{'data:image/jpeg;base64,'+ ${encoder.encodeToBase64(product.images.get(0))}}"
                      class="w-100 rounded shadow mb-3"
-                     style="height:380px;object-fit:cover">
+                     style="height:380px;object-fit:contain">
                 <div class="d-flex gap-2 flex-wrap">
                     <img th:each="img,stat : ${product.images}"
                          th:src="@{'data:image/jpeg;base64,'+ ${encoder.encodeToBase64(img)}}"
                          class="thumb-img"
                          th:onclick="changeImage(this)"
-                         style="height:70px;width:70px;object-fit:cover;
+                         style="height:70px;width:70px;object-fit:contain;
                          border-radius:8px;cursor:pointer">
                 </div>
             </div>
@@ -35,7 +35,7 @@
                    th:text="${product.description}">
                 </p>
                 <h4 class="price">
-                    <span th:text="${product.price}"></span> лв.
+                    <span th:text="${#numbers.formatDecimal(product.price, 2, 2)}"></span> лв.
                 </h4>
                 <form th:action="@{/carts/submit-add-product/{id}(id=${product.id})}"
                       sec:authorize="hasAuthority('USER')"
@@ -44,9 +44,11 @@
                         Добави в количката
                     </button>
                 </form>
-                <form sec:authorize="hasAuthority('ADMIN')">
-                    <button class="shop-btn-disabled w-100 mt-3">
-                        Не можете да добавяте в количката
+                <form sec:authorize="hasAuthority('ADMIN')"
+                      th:action="@{/products/submit-delete-product/{id}(id=${product.id})}"
+                      method="post">
+                    <button class="shop-btn w-100 mt-3">
+                        Изтрии обява
                     </button>
                 </form>
             </div>
@@ -60,7 +62,7 @@
              th:each="r:${relatedProducts}">
             <div class="shop-card h-100">
                 <img th:src="@{'data:image/jpeg;base64,'+ ${encoder.encodeToBase64(r.images.get(0))}}"
-                     style="height:180px;object-fit:cover;width:100%">
+                     style="height:180px;object-fit:contain;width:100%">
                 <div class="p-3">
                     <h6 class="fw-bold"
                         th:text="${r.title}">

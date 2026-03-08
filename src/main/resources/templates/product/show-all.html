@@ -65,7 +65,7 @@
              th:each="p:${products}">
             <div class="shop-card h-100">
                 <img th:src="@{'data:image/jpeg;base64,'+ ${encoder.encodeToBase64(p.images.get(0))}}"
-                     style="height:220px;object-fit:cover;width:100%">
+                     style="height:220px;object-fit:contain;width:100%">
                 <div class="p-3">
                     <h6 class="fw-bold"
                         th:text="${p.title}">
@@ -76,7 +76,7 @@
                         : p.description}">
                     </p>
                     <p class="price">
-                        <span th:text="${p.price}"></span> лв.
+                        <span th:text="${#numbers.formatDecimal(p.price, 2, 2)}"></span> лв.
                     </p>
                     <button class="btn btn-outline-primary w-100"
                             th:onclick="|location.href='/products/${p.id}'|">
